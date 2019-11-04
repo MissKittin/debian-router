@@ -1,0 +1,3 @@
+# Prepare PXE environment
+mount --bind /usr/lib/syslinux/modules/bios /home/pxe/pxelinux/modules
+mount --bind /usr/lib/PXELINUX /home/pxe/pxelinux/pxelinux

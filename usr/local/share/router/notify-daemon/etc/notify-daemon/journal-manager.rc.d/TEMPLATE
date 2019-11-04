@@ -1,0 +1,22 @@
+# Description
+parser_name='NAME'
+
+parse_to_NAME()
+{
+	# Additional settings here
+
+	case $3 in
+		'critical')
+			# Critical format
+		;;
+		'high')
+			# High format
+		;;
+		'medium')
+			# Medium format
+		;;
+		'low')
+			# Low format
+		;;
+	esac
+}

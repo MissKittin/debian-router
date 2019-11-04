@@ -1,0 +1,2 @@
+# Ban blacklisted macs quickly
+/usr/local/sbin/permanently-banned.sh enable > /dev/null 2>&1 &

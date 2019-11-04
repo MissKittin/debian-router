@@ -1,0 +1,21 @@
+# From WAN to LAN
+$iptables -t nat -A POSTROUTING -o $WAN -j MASQUERADE
+$iptables -A FORWARD -i $WAN -o $LAN -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $LAN -o $WAN -j ACCEPT
+
+# From WiFi to LAN
+$iptables -t nat -A POSTROUTING -o $WIFI -j MASQUERADE
+$iptables -A FORWARD -i $WIFI -o $LAN -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $LAN -o $WIFI -j ACCEPT
+
+# Accept traffic to LAN from L2TP
+$iptables -I FORWARD -i $LAN -o $L2TP -j ACCEPT
+
+# From LAN & WAN to L2TP
+$iptables -A FORWARD -i $WAN -o $L2TP -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $L2TP -o $WAN -j ACCEPT
+
+# From WiFi to L2TP
+$iptables -A FORWARD -i $WIFI -o $L2TP -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $L2TP -o $WIFI -j ACCEPT
+

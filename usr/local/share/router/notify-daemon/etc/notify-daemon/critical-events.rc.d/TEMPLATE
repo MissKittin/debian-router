@@ -1,0 +1,24 @@
+# Description
+critical_event_name='Pretty name'
+
+check_NAME()
+{
+	if CONDITION; then
+		log 'NAME: an exception occured'
+		return 0
+	else
+		log 'NAME: exception not occured'
+		return 1
+	fi
+}
+send_notify_NAME()
+{
+	send_notify 'NAME' 'critical' 'Your notify content'
+}
+do_critical_NAME()
+{
+	log 'NAME: what i am doing'
+	# Shell commands below
+	
+}
+critical_checklist="$critical_checklist NAME"

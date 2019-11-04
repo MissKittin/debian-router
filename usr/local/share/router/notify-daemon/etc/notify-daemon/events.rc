@@ -1,0 +1,12 @@
+# Notify daemon's check-event part
+# Don't touch this!
+
+# Initialize checklist
+checklist=''
+
+# Import events
+[ "`ls $home_dir/events.rc.d/*.rc 2>/dev/null`" = '' ] && \
+	log 'events: no events defined' || \
+	for i in $home_dir/events.rc.d/*.rc; do
+		. $i
+	done

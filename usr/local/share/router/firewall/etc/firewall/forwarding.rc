@@ -1,0 +1,5 @@
+# Default policy
+$iptables -P FORWARD DROP
+
+# Accept traffic between PPTP clients
+$iptables -A FORWARD -i $PPTP -o $PPTP -j ACCEPT

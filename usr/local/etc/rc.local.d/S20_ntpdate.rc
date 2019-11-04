@@ -1,0 +1,2 @@
+# Sync clock
+nohup /usr/local/sbin/ntpdate-daemon.sh > /dev/null 2>&1 &

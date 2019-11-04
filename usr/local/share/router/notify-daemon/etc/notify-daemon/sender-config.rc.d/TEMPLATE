@@ -1,0 +1,5 @@
+# Description
+NAME__enabled='true' # true/false
+
+NAME__varA='content'
+NAME__varB='content'

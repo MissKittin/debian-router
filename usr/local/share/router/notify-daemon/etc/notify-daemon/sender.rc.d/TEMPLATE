@@ -1,0 +1,23 @@
+# Description
+send_method_name='Pretty name'
+
+# Import configuration
+. $home_dir/sender-config.rc.d/NAME.rc
+
+send_by_NAME()
+{
+	# $1 -> from
+	# $2 -> importance
+	# $3 -> message
+
+	if $NAME__enabled; then
+		# If you want check first if notify was sended
+		# NN hours back (eg: 15)
+		if send_check_notify 'NN' "$1" "$2" "$3"; then
+			# Shell commands here
+		else
+			log 'NAME: disabled in settings'
+		fi
+	fi
+}
+send_methods="$send_methods NAME"

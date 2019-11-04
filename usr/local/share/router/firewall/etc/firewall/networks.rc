@@ -1,0 +1,11 @@
+# Set networks
+LAN='br0'
+WAN='eth0'
+PPTP='pptp+'
+L2TP='l2tp+'
+PPP='ppp0'
+WIFI='wlan1'
+
+# NICs additional info
+G1='eth1' # 1gbps interface
+M100='eth2' # 100mbps interface

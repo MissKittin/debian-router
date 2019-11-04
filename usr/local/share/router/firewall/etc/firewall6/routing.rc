@@ -1,0 +1,12 @@
+# Default policy
+$iptables -P FORWARD DROP
+
+# From WAN to LAN
+$iptables -A FORWARD -i $WAN -o $LAN -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $LAN -o $WAN -j ACCEPT
+$iptables -A FORWARD -i $WAN -o $LAN -p icmpv6 -j ACCEPT
+
+# From WiFi to LAN
+$iptables -A FORWARD -i $WIFI -o $LAN -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -A FORWARD -i $LAN -o $WIFI -j ACCEPT
+$iptables -A FORWARD -i $WIFI -o $LAN -p icmpv6 -j ACCEPT

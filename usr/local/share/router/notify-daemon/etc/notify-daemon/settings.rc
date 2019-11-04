@@ -1,0 +1,12 @@
+# Notify daemon's settings
+enabled='true' # true/false
+check_every='60' # seconds
+clear_environment='true' # true/false
+clear_environment_every='1000' # number of loops
+
+# Journal settings
+journal_workspace='/tmp/.notify-journal'
+journal_log_file='/tmp/.notify-journal.log'
+
+# Logging settings
+log_file='/tmp/.notify-daemon.log'

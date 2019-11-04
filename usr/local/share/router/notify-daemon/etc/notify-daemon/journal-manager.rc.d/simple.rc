@@ -1,0 +1,7 @@
+# Simplest output
+parser_name='simple'
+
+parse_to_simple()
+{
+	echo "ID: ${1}, From: ${2}, Priority: ${3}, Message: ${4}"
+}

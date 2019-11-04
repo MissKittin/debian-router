@@ -1,0 +1,2 @@
+# TCP SACK flaws workaround
+net.ipv4.tcp_sack = 0

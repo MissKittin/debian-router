@@ -1,0 +1,23 @@
+# Default policy
+$iptables -P INPUT DROP
+$iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -P OUTPUT ACCEPT
+
+# IPv6 uses ICMPv6 for MAC address resolution
+$iptables -A INPUT -p icmpv6 -j ACCEPT
+
+# ICMPv6 through internet
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 1 -j ACCEPT # Destination Unreachable [RFC4443]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 2 -j ACCEPT # Packet Too Big [RFC4443]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 3 -j ACCEPT # Time Exceeded [RFC4443]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 4 -j ACCEPT # Parameter Problem [RFC4443]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 128 -j ACCEPT # Echo Request [RFC4443]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 130 -j ACCEPT # Multicast Listener Query [RFC2710]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 131 -j ACCEPT # Multicast Listener Report [RFC2710]
+$iptables -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 132 -j ACCEPT # Multicast Listener Done [RFC2710]
+
+# Match traffic by the TTL to determine if it's on-link or routed for the following
+$iptables -A INPUT -i $LAN -p ipv6-icmp -m icmp6 --icmpv6-type 134 -m hl --hl-eq 255 -j ACCEPT # Router Advertisement [RFC4861]
+$iptables -A INPUT -i $LAN -p ipv6-icmp -m icmp6 --icmpv6-type 135 -m hl --hl-eq 255 -j ACCEPT # Neighbor Solicitation [RFC4861]
+$iptables -A INPUT -i $LAN -p ipv6-icmp -m icmp6 --icmpv6-type 136 -m hl --hl-eq 255 -j ACCEPT # Neighbor Advertisement [RFC4861]
+#$iptables -A INPUT -i $LAN -p udp -m udp --sport 547 --dport 546 -m hl --hl-eq 255 -j ACCEPT # DHCPv6

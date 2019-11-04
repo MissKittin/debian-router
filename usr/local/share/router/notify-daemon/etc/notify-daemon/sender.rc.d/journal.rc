@@ -1,0 +1,10 @@
+# Send notify to journal
+# Don't touch this!
+
+send_method_name='Journal'
+
+send_by_journal()
+{
+	journal_add "$1" "$2" "$3"
+}
+send_methods="$send_methods journal"

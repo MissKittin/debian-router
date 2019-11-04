@@ -1,0 +1,2 @@
+# Writeback time (60 seconds)
+vm.dirty_writeback_centisecs = 6000

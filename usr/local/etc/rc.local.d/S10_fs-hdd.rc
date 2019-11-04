@@ -1,0 +1,5 @@
+# Optimize filesystems
+/usr/local/sbin/remount-relatime.sh &
+
+# Optimize SSD
+echo deadline > /sys/block/sda/queue/scheduler

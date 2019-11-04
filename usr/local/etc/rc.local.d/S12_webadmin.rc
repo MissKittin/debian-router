@@ -1,0 +1,4 @@
+# Start HTTP server
+mountpoint -q /var/lib/php && mkdir /var/lib/php/sessions
+mountpoint -q /var/lib/php && chmod 1733 /var/lib/php/sessions
+nohup /usr/local/sbin/httpd_php-start.sh > /dev/null 2>&1 &

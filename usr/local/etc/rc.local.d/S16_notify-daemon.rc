@@ -1,0 +1,2 @@
+# Start notify daemon
+nohup /usr/local/sbin/notify-daemon.sh daemon > /dev/null 2>&1 &

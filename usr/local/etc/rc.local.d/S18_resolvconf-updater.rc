@@ -1,0 +1,2 @@
+# Start resolvconf-updater.sh
+nohup /usr/local/sbin/resolvconf-updater.sh > /dev/null 2>&1 &

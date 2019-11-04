@@ -1,0 +1,18 @@
+# Description
+event_name='Pretty name'
+
+check_NAME()
+{
+	if CONDITION; then
+		log 'NAME: exception not occured'
+		return 1
+	else
+		log 'NAME: an exception occured'
+		return 0
+	fi
+}
+send_notify_NAME()
+{
+	send_notify 'NAME' 'IMPORTANCE' 'Your notify content'
+}
+checklist="$checklist NAME"

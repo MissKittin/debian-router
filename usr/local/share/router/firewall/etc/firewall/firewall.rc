@@ -1,0 +1,54 @@
+# Default policy
+$iptables -P INPUT DROP
+$iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+$iptables -P OUTPUT ACCEPT
+
+# Accept dnsmasq's DNS on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 53 -j ACCEPT
+$iptables -A INPUT -i $LAN -p UDP --dport 53 -j ACCEPT
+
+# Accept dnsmasq's PXE on LAN
+$iptables -A INPUT -i $LAN -p UDP --dport 69 -j ACCEPT
+
+# Accept NFS on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 111 -j ACCEPT # NFS
+$iptables -A INPUT -i $LAN -p UDP --dport 111 -j ACCEPT # NFS
+$iptables -A INPUT -i $LAN -p TCP --dport 2049 -j ACCEPT # NFS
+$iptables -A INPUT -i $LAN -p UDP --dport 2049 -j ACCEPT # NFS
+$iptables -A INPUT -i $LAN -p TCP --dport 29541 -j ACCEPT # mountd
+$iptables -A INPUT -i $LAN -p UDP --dport 29541 -j ACCEPT # mountd
+
+# Accept SSH on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 22 -j ACCEPT
+
+# Accept HTTP on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 80 -j ACCEPT
+
+# Accept Samba shares on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 139 -j ACCEPT
+$iptables -A INPUT -i $LAN -p TCP --dport 445 -j ACCEPT
+
+# Accept PPTP on WAN
+$iptables -A INPUT -i $WAN -p TCP --dport 1723 -j ACCEPT
+$iptables -A INPUT -i $WAN -p 47 -j ACCEPT # Accept GRE packets
+
+# Accept PPTP on LAN
+$iptables -A INPUT -i $LAN -p TCP --dport 1723 -j ACCEPT
+$iptables -A INPUT -i $LAN -p 47 -j ACCEPT # Accept GRE packets
+
+# Accept L2TP/IPSec on WAN
+$iptables -A INPUT -i $WAN -p UDP --dport 1701 -j ACCEPT #xl2tpd
+$iptables -A INPUT -i $WAN -p UDP --dport 500 -j ACCEPT #ipsec ike
+$iptables -A INPUT -i $WAN -p UDP --dport 4500 -j ACCEPT #ipsec nat_traversal
+$iptables -A INPUT -i $WAN -p 50 -j ACCEPT #esp protocol
+$iptables -A INPUT -i $WAN -p 51 -j ACCEPT #ah protocol
+
+# Accept L2TP/IPSec on LAN
+$iptables -A INPUT -i $LAN -p UDP --dport 1701 -j ACCEPT #xl2tpd
+$iptables -A INPUT -i $LAN -p UDP --dport 500 -j ACCEPT #ipsec ike
+$iptables -A INPUT -i $LAN -p UDP --dport 4500 -j ACCEPT #ipsec nat_traversal
+$iptables -A INPUT -i $LAN -p 50 -j ACCEPT #esp protocol
+$iptables -A INPUT -i $LAN -p 51 -j ACCEPT #ah protocol
+
+#################################
+

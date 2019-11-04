@@ -1,0 +1,2 @@
+# PCI Runtime Power Management
+SUBSYSTEM=="pci", ATTR{power/control}="auto"

@@ -1,0 +1,2 @@
+# Enable zram swap
+/usr/local/sbin/set-zram.sh autoenable > /dev/null 2>&1 &

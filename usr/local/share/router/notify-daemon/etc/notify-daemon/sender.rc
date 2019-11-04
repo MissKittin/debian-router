@@ -1,0 +1,52 @@
+# Notify daemon's send part
+# Don't touch this!
+
+# Initialize methods list
+send_methods=''
+
+# Import send methods
+[ "`ls $home_dir/sender.rc.d/*.rc 2>/dev/null`" = '' ] || for i in $home_dir/sender.rc.d/*.rc; do
+	. $i
+done
+
+# Check if notify was sended
+send_check_notify()
+{
+	[ -e $journal_log_file ] || return 1
+	now_date=`date '+%s'`
+	touch /tmp/.whileoutput
+	cat $journal_log_file | while read line; do
+		eval $line
+		if [ "$2" = "$from" ] && [ "$3" = "$importance" ] && [ "$4" = "$message" ]; then
+			date_to_timestamp=`date --date="$date $time" +"%s"`
+			input_hour="$1"; hour_to_minute=$((input_hour*60)); minute_to_seconds=$((hour_to_minute*60))
+			date_to_timestamp_plus_24h=$((date_to_timestamp+minute_to_seconds))
+			if [ ! "$now_date" -ge "$date_to_timestamp_plus_24h" ]; then
+				log "sender: notify sended in last $input_hour hour(s), blocking"
+				rm /tmp/.whileoutput
+				break
+			fi
+		else
+			unset date
+			unset time
+			unset id
+			unset from
+			unset importance
+			unset message
+		fi
+	done
+	if [ -e /tmp/.whileoutput ]; then
+		rm /tmp/.whileoutput
+		return 0
+	else
+		return 1
+	fi
+}
+
+# Send function
+send_notify()
+{
+	for i in $send_methods; do
+		send_by_$i "$1" "$2" "$3"
+	done
+}

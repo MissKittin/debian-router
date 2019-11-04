@@ -1,0 +1,4 @@
+# Write addresses which should be banned by default, eg:
+# 00:11:22:33:44:55 # Description 1
+# 66:77:88:99:aa:bb # Description 2
+
