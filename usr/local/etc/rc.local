@@ -1,9 +1,4 @@
 #!/bin/sh -e
-#####################################
-### Debian router                 ###
-### Initial release: stretch 9.x  ###
-### Bootstraped: 27.08.2018 15:45 ###
-#####################################
 
 # Run S*.rc sequence in /usr/local/etc/rc.local.d
 for i in $(find /usr/local/etc/rc.local.d -type f -name "S*" | sort); do
