@@ -5,4 +5,7 @@ for i in $(find /usr/local/etc/rc.local.d -type f -name "S*" | sort); do
 	. ${i}
 done
 
+# Send info to dmesg
+echo 'System booted' > /dev/kmsg
+
 exit 0
