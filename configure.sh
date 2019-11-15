@@ -109,7 +109,7 @@ echo; echo ' Preparing in local/share:'; echo
 cd ../share
 
 echo ' - webadmin'
-mkdir ./router/webadmin/www
+[ -e ./router/webadmin/www ] || mkdir ./router/webadmin/www
 ln -s ./router/webadmin/www ./www
 
 echo; echo ' Preparing in etc:'; echo
