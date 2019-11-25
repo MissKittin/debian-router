@@ -9,6 +9,7 @@ echo; echo ' Cleaning...'
 [ -e .git ] && rm -r -f .git
 rm LICENSE
 rm README.md
+rm HOWTO.md
 rm ./usr/local/etc/README.md
 rm ./usr/local/sbin/README.md
 rm ./usr/local/share/router/acpid-mods/README.md
