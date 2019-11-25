@@ -22,4 +22,4 @@ LAN 100Mbps: Realtek RTL8139D<br>
 Case: old AT/ATX case with psu parallel to the motherboard
 
 # in the future
-overlayfs containers, qemu virtual machines (as daemon), pxe server
+overlayfs containers, qemu virtual machines (as daemon), pxe server and backupOS
