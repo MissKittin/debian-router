@@ -2,6 +2,10 @@
 I wrote from memory, I could forget something
 <br><br>
 
+# hint
+If you making changes in /etc/* files, copy original `file` to `file.bak`, move `file` to `/usr/local/etc` and link from `/usr/local/etc` to `etc`. It will be easier for you to find configuration files.
+<br><br>
+
 # debian debootstrap
 I recommend installing debian via debootstrap. You will have a clean and not bloated system.<br>
 So, run your favourite debian-based distro on your pc (or virtual machine) and install debootstrap: `apt-get install debootstrap`<br>
@@ -21,7 +25,7 @@ In debian you can control packages that you have installed, but now it's like me
 <br>
 You can run `apt-mark showmanual` - you will see a few packages without dependencies.<br>
 Now you have to install kernel: `apt-get install --no-install-recommends linux-image-amd64` or other kernel that you want.<br>
-You certainly don't want *.old files, remove it: `rm /vmlinuz.old; rm /initrd.img.old`<br>
+You certainly don't want \*.old files, remove it: `rm /vmlinuz.old; rm /initrd.img.old`<br>
 Install bootloader in your system: `apt-get install --no-install-recommends grub-pc`<br>
 Here you can't connect this system to the internet, install network: `apt-get install netbase ifupdown`<br>
 If you want ifconfig tool install net-tools: `apt-get install net-tools`<br>
@@ -40,6 +44,26 @@ tmp	/var/tmp	tmpfs	auto			0	0
 # Root
 /dev/sda1		/	ext4	auto,suid,dev,noatime,nodiratime,async,discard,barrier=0,commit=60	0	1
 ```
+Comment out all lines in `etc/apt/sources.list`. In `etc/apt/sources.list.d/stretch.list` put
+```
+# LiveCD repo
+deb http://http.debian.net/debian stretch main contrib non-free
+#deb-src http://http.debian.net/debian stretch main contrib non-free
+deb http://security.debian.org stretch/updates main contrib non-free
+#deb-src http://security.debian.org stretch/updates main contrib non-free
+
+# Backports
+#deb http://ftp.pl.debian.org/debian stretch-backports main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-backports main contrib non-free
+
+# Updates
+#deb http://ftp.pl.debian.org/debian stretch-updates main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-updates main contrib non-free
+
+# Proposed updates
+#deb http://ftp.pl.debian.org/debian stretch-proposed-updates main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-proposed-updates main contrib non-free
+```
 etc/hostname: rename debian to your_hostname<br>
 etc/hosts: add to end of file `127.0.0.1 your_hostname`<br>
 etc/network/interfaces.d: create new file and write `iface YOUR_WAN_INTERFACE inet dhcp` to this file<br>
@@ -52,7 +76,7 @@ Clean some directories - remove all files from `dev` and `run`
 
 # prepare the hardware
 Assembly your server, connect display and keyboard.<br>
-Boot your favourite linux distro on your server and run gparted and make partition(s) on hdd.
+Boot your favourite linux distro on your server, run gparted and make partition(s) on hdd.
 <br><br>
 
 # transfer & install
@@ -95,6 +119,27 @@ soon
 <br><br>
 
 # the end
+Uncomment backports, updates and proposed-updates in `/etc/apt/sources.list.d/stretch.list`. The content should be like this:
+```
+# LiveCD repo
+deb http://http.debian.net/debian stretch main contrib non-free
+#deb-src http://http.debian.net/debian stretch main contrib non-free
+deb http://security.debian.org stretch/updates main contrib non-free
+#deb-src http://security.debian.org stretch/updates main contrib non-free
+
+# Backports
+deb http://ftp.pl.debian.org/debian stretch-backports main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-backports main contrib non-free
+
+# Updates
+deb http://ftp.pl.debian.org/debian stretch-updates main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-updates main contrib non-free
+
+# Proposed updates
+deb http://ftp.pl.debian.org/debian stretch-proposed-updates main contrib non-free
+#deb-src http://ftp.pl.debian.org/debian stretch-proposed-updates main contrib non-free
+```
+Upgrade system: `apt-get upgrade` (if you have dependency problems, use `apt-get dist-upgrade`)<br>
 Clean apt and dpkg: `apt-get autoremove --purge; apt-get clean`<br>
-`halt` server, unplug the power cord and disconnect displays, keyboard, mouse etc, plug power cord and power on your serwer. Now you can enter by ssh: `ssh YOUR_NOT_ROOT_USERNAME@YOUR_SERVER_IP -X` where `-X` is Xorg forwarding (on windows use eg putty and xming).<br>
+`halt` server, unplug the power cord and disconnect displays, keyboard, mouse etc, plug power cord and power on your server. Now you can enter by ssh: `ssh YOUR_NOT_ROOT_USERNAME@YOUR_SERVER_IP -X` where `-X` is Xorg forwarding (on windows use eg putty and xming).<br>
 For X11 forwarding you need xauth. To run programs with sudo, you need link .Xauthority: `sudo ln -s /home/yourusername/.Xauthority /root/.Xauthority`
