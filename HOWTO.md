@@ -60,12 +60,12 @@ Make tarball of your new root (`tar cvf root.tar *` and optionally compress it `
 Transfer root.tar (or root.tar.gz), debian-router.tar.gz and setup.sh to your server.<br>
 On server mount hdd root partition, open console in mountpoint (you should see only lost+found in `ls`), unpack rootfs (`tar xvf /path/to/root.tar_or_tar.gz`) and `cp /path/to/debian-router.tar.gz .; cp /path/to/setup.sh .`<br>
 Now as root:<br>
-`for i in dev proc run sys; do mount --bind /${i} ./${i}; done`<br>
+`for i in dev dev/pts proc run sys; do mount --bind /${i} ./${i}; done`<br>
 `chroot .`<br>
 `grub-install /dev/HDD_NAME`<br>
 If grub is successfully installed, type<br>
 `exit`<br>
-`for i in dev proc run sys; do umount ./${i}; done`<br>
+`for i in dev/pts dev proc run sys; do umount ./${i}; done`<br>
 Close all file managers and text editors, umount hdd partition and boot server from hdd.
 <br><br>
 
@@ -75,12 +75,17 @@ Login as root and type: `cd /; chmod 755 /setup.sh; /setup.sh`
 
 # check internet connection
 If you aren't connected to the internet, connect now: `ifup YOUR_WAN_INTERFACE`<br>
-If you see `Ignoring unknown interface` type `ip link show` and correct /etc/network/interfaces.d/YOUR_FILE_NAME: `echo 'iface YOUR_WAN_INTERFACE inet dhcp' > YOUR_FILE_NAME`
+If you see `Ignoring unknown interface` type `ip link show` and correct /etc/network/interfaces.d/YOUR_FILE_NAME: `cd /etc/network/interfaces.d; echo 'iface YOUR_WAN_INTERFACE inet dhcp' > YOUR_FILE_NAME`
+<br><br>
+
+# time zone
+Run `dpkg-reconfigure tzdata` and select your location.<br>
+You can also run `ntpdate-debian` to synchronize hardware clock.
 <br><br>
 
 # install more packages
 It's headless server, install the ssh: `apt-get install openssh-server`<br>
-Bootlogd creates boot log in /var/log/boot, if you want this: `apt-get install bootlogd`<br>
+Bootlogd creates boot log in /var/log/boot, if you want this: `apt-get install bootlogd` and move `/etc/rc2.d/S**bootlogd` to `/etc/rc2.d/S01bootlogd` (of curse if you installed sysvinit and using default rc2 runlevel)<br>
 You might need sudo: `apt-get install sudo` and put in /etc/sudoers.d/yourusername: `YOUR_USER_NAME	ALL=PASSWD: ALL`<br>
 Now install all programs that you need, eg: midnight commander, mousepad, synaptic etc
 <br><br>
@@ -90,5 +95,6 @@ soon
 <br><br>
 
 # the end
+Clean apt and dpkg: `apt-get autoremove --purge; apt-get clean`<br>
 `halt` server, unplug the power cord and disconnect displays, keyboard, mouse etc, plug power cord and power on your serwer. Now you can enter by ssh: `ssh YOUR_NOT_ROOT_USERNAME@YOUR_SERVER_IP -X` where `-X` is Xorg forwarding (on windows use eg putty and xming).<br>
 For X11 forwarding you need xauth. To run programs with sudo, you need link .Xauthority: `sudo ln -s /home/yourusername/.Xauthority /root/.Xauthority`
