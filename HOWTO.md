@@ -3,7 +3,7 @@ I wrote from memory, I could forget something
 <br><br>
 
 # hint
-If you making changes in /etc/* files, copy original `file` to `file.bak`, move `file` to `/usr/local/etc` and link from `/usr/local/etc` to `etc`. It will be easier for you to find configuration files.
+If you making changes in /etc/* files, copy original `file` to `file.bak`, move `file` to `/usr/local/etc` and link from `/usr/local/etc` to `/etc`. It will be easier for you to find configuration files.
 <br><br>
 
 # debian debootstrap
