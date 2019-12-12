@@ -10,7 +10,7 @@ scripts and daemons: https://github.com/MissKittin/debian-router/tree/master/usr
 # and then
 read tutorial: https://github.com/MissKittin/debian-router/blob/master/HOWTO.md
 
-# my configuration
+# my hardware configuration
 Motherboard: Gigabyte 880GA-UD3H rev 2.2<br>
 CPU: AMD Athlon II X2 260u<br>
 RAM: Kingston HyperX Savage DDR3 HX318C9SRK2/8 4GB overclocked to 1866MHz<br>
@@ -20,6 +20,10 @@ WiFi AP: TP-LINK TL-WN881ND Rev:2.0<br>
 LAN 1Gbps: TP-LINK TG-3468v2<br>
 LAN 100Mbps: Realtek RTL8139D<br>
 Case: old AT/ATX case with psu parallel to the motherboard
+
+# my debian configuration
+Init: SysVinit with init-parallel script and networking init script mod (will be commited soon), boot time: 10.48s<br>
+Networking: LANs and WLAN bridged, PPTP and L2TP interfaces separated, optional teredo gateway (I don't recommend this way)
 
 # in the future
 overlayfs containers, qemu virtual machines (as daemon), pxe server and backupOS
