@@ -22,7 +22,7 @@ LAN 100Mbps: Realtek RTL8139D<br>
 Case: old AT/ATX case with psu parallel to the motherboard
 
 # my debian configuration
-Init: SysVinit with init-parallel script and networking init script mod (will be commited soon), boot time: 10.48s<br>
+Init: SysVinit with init-parallel script and networking init script mod (will be commited soon), boot time: <del>10.48s</del> 6.92s<br>
 Networking: LANs and WLAN bridged, PPTP and L2TP interfaces separated, optional teredo gateway (I don't recommend this way)
 
 # in the future
